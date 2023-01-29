@@ -33,7 +33,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-
+![Kapture 2023-01-29 at 16 08 34](https://user-images.githubusercontent.com/66531257/215355813-9767c68d-a2b9-4103-82df-f201bc878e20.gif)
 
 GIF created with [Kap](https://getkap.co/)
 
@@ -41,7 +41,7 @@ GIF created with [Kap](https://getkap.co/)
 
 Describe any challenges encountered while building the app:
 
-
+One of the challenging things I faced was figuring out how to use Spannable to color code the guess. Another thing was getting the keyboard to hide after the user made a guess (I decided to do this because I felt like it covered a lot of the screen and that it was a nice feature to add).
 
 ## License
 
