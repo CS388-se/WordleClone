@@ -17,33 +17,31 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] User can toggle betweeen different word lists
-- [ ] User can see the 'correctness' of their guess through colors on the word 
-- [X] User sees a visual change after guessing the correct word
+- [ ] User can toggle between different word lists
+- [X] User can see the 'correctness' of their guess through colors on the word 
+- [ ] User sees a visual change after guessing the correct word
 - [X] User can tap a 'Reset' button to get a new word and clear previous guesses
-- [ ] User will get an error message if they input an invalid guess
+- [X] User will get an error message if they input an invalid guess
 - [ ] User can see a 'streak' record of how many words they've guessed correctly.
 
 The following **additional** features are implemented:
 
 * [X] When the user guesses a word, the keyboard is hidden to view the app more clearly.
+* [X] When user inputs an invalid guess, the input is cleared.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-<!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
+
+GIF created with [Kap](https://getkap.co/)
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Describe any challenges encountered while building the app:
+
+
 
 ## License
 

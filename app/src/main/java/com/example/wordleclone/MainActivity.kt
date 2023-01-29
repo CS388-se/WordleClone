@@ -42,43 +42,61 @@ class MainActivity : AppCompatActivity() {
         // setting the on click event for the guess button
         guessButton.setOnClickListener {
             this.hideKeyboard()
+            if (guessInput.text.length != 4) {
+                Toast
+                    .makeText(this, "Please enter a 4-letter word!", Toast.LENGTH_LONG)
+                    .show()
+                guessInput.text.clear()
+                return@setOnClickListener
+            }
+
             val guess = guessInput.text.toString().uppercase()
             val result = this.checkGuess(guess, wordle.text.toString())
             val colorCodedResult = this.colorCodeCheck(guess, result)
 
-            if (guessInput.text.length == 4) {
-                when (guessNum) {
-                    1 -> {
-                        guessOne.text = guess
-                        guessOneCheck.setText(colorCodedResult, TextView.BufferType.SPANNABLE)
-                    }
-                    2 -> {
-                        guessTwo.text = guess
-                        guessTwoCheck.setText(colorCodedResult, TextView.BufferType.SPANNABLE)
-                    }
-                    3 -> {
-                        guessThree.text = guess
-                        guessThreeCheck.setText(colorCodedResult, TextView.BufferType.SPANNABLE)
-                    }
+            // depending on the guess number, update that particular guess
+            when (guessNum) {
+                1 -> {
+                    guessOne.text = guess
+                    guessOneCheck.setText(colorCodedResult, TextView.BufferType.SPANNABLE)
                 }
-
-                if (result == "OOOO" || guessNum >= 3) {
-                    wordle.visibility = View.VISIBLE
-                    guessInput.isEnabled = false
-                    guessInput.isClickable = false
-                    guessButton.visibility = View.INVISIBLE
-                    resetButton.visibility = View.VISIBLE
-
-                    if (result == "OOOO") {
-                        Toast.makeText(this, "Well done! Press 'Reset' to play again!", Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(this, "You were not able to guess the word :( Press 'Reset' to play again!", Toast.LENGTH_LONG).show()
-                    }
+                2 -> {
+                    guessTwo.text = guess
+                    guessTwoCheck.setText(colorCodedResult, TextView.BufferType.SPANNABLE)
                 }
-
-                guessInput.text.clear()
-                guessNum++
+                3 -> {
+                    guessThree.text = guess
+                    guessThreeCheck.setText(colorCodedResult, TextView.BufferType.SPANNABLE)
+                }
             }
+
+            // depending on whether or not the guess was correct or the guess limit is exceeded
+            // preform logic to change the visibility/accessibility of the the guess components
+            // and display a toast.
+            if (result == "OOOO" || guessNum >= 3) {
+                wordle.visibility = View.VISIBLE
+                guessInput.isEnabled = false
+                guessInput.isClickable = false
+                guessButton.visibility = View.INVISIBLE
+                resetButton.visibility = View.VISIBLE
+
+                if (result == "OOOO") {
+                    Toast.makeText(
+                        this,
+                        "Well done! Press 'Reset' to play again!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "You were not able to guess the word :( Press 'Reset' to play again!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            guessInput.text.clear()
+            guessNum++
         }
 
         // setting the on click event for the reset button
@@ -101,9 +119,10 @@ class MainActivity : AppCompatActivity() {
             guessThreeCheck.text = ""
             guessNum = 1
         }
-
     }
 
+    // create a spannable where its easy to color each letter and use that as the indicator
+    // of the 'correctness' of the guess.
     private fun colorCodeCheck(guess: String, checkResult: String): Spannable {
         val spannable: Spannable = SpannableString(guess)
         for (i in 0..3) {
@@ -114,21 +133,22 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Color.RED
             }
-            spannable.setSpan(ForegroundColorSpan(color), i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(
+                ForegroundColorSpan(color),
+                i,
+                i + 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }
-
         return spannable
     }
 
+    // hiding the keyboard
     private fun hideKeyboard() {
         val view: View? = this.currentFocus
         if (view != null) {
-            // on below line we are creating a variable
-            // for input manager and initializing it.
             val inputMethodManager =
                 getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-
-            // on below line hiding our keyboard.
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
@@ -143,7 +163,7 @@ class MainActivity : AppCompatActivity() {
      *   '+' represents the right letter in the wrong place
      *   'X' represents a letter not in the target word
      */
-    private fun checkGuess(guess: String, wordToGuess: String) : String {
+    private fun checkGuess(guess: String, wordToGuess: String): String {
         var result = ""
         for (i in 0..3) {
             result += if (guess[i] == wordToGuess[i]) {
